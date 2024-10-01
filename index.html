@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Number to Words</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    #count {
+      font-weight: bold;
+    }
+
+    #demo {
+      font-size: 22px;
+      color: darkblue;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Count in Numbers and Words</h1>
+<button id="btn1">Increment</button>
+<button id="btn2">Decrement</button>
+<button id="reset">Reset</button>
+
+<p>Current Count: <span id="count">0</span></p>
+<p id="demo">Zero</p>
+
+<script>
+// Initialize elements
+var btn1 = document.getElementById("btn1");
+var btn2 = document.getElementById("btn2");
+var reset = document.getElementById("reset");
+var countElement = document.getElementById("count");
+var demoElement = document.getElementById("demo");
+
+// Initialize the count
+var count = 0;
+
+// Helper function to convert numbers to words (up to 99)
+function numberToWords(num) {
+  const belowTwenty = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+  if (num < 20) {
+    return belowTwenty[num];
+  } else if (num < 100) {
+    return tens[Math.floor(num / 10)] + (num % 10 !== 0 ? ' ' + belowTwenty[num % 10] : '');
+  } else {
+    return "Out of Range";  // Limiting range to 0-99 for now
+  }
+}
+
+// Function to update count and display it in words
+function updateCount() {
+  // Update the count in numbers
+  countElement.innerHTML = count;
+
+  // Update the count in words
+  demoElement.innerHTML = numberToWords(count);
+}
+
+// Increment count when btn1 is clicked
+btn1.addEventListener('click', () => {
+  if (count < 99) {  // Limit to 99
+    count++;
+    updateCount();
+  } else {
+    alert("Maximum count reached!");
+  }
+});
+
+// Decrement count when btn2 is clicked
+btn2.addEventListener('click', () => {
+  if (count > 0) {  // Limit to 0
+    count--;
+    updateCount();
+  } else {
+    alert("Minimum count reached!");
+  }
+});
+
+// Reset count when the reset button is clicked
+reset.addEventListener('click', () => {
+  count = 0;
+  updateCount();
+});
+</script>
+
+</body>
+</html>
